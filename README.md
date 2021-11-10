@@ -1,4 +1,4 @@
-## Quick Notes
+## Create React App vulnerabilities
 
 > `npm audit` says there is a vulnerability in react-scripts.
 
@@ -41,4 +41,38 @@ But I still see these warnings when creating a new project or running npm instal
 Yes, unfortunately that's how npm works since v6. You can bring it up with npm. If enough people complain, maybe they'll rethink this decision. It is unfortunately actively hostile to build tooling.
 
 Note that you can run npm install --no-audit to suppress them.
+```
+
+## Using an up-to-date version of esbuild-wasm
+
+> If you have installed the current version of the esbuild(@0.11.12) then the code according to the stephan sir would not work any more so instead we have the following solution
+
+```js
+const startService = async () => {
+  try {
+    await esbuild.initialize({
+      worker: true,
+      wasmURL: '/esbuild.wasm',
+    });
+  } catch (err) {}
+};
+```
+
+> now once this function is executed in the useEffect hook the esbuild value will have all the methods for transpilling
+
+> therefore, instead of defining any refs we can directly use esbuild for transform as shown below
+
+```js
+const onClick = async () => {
+  try {
+    const res = await esbuild.transform(input, {
+      loader: 'jsx',
+      target: 'es2015',
+    });
+
+    console.log(res.code);
+  } catch (err) {
+    console.error(err);
+  }
+};
 ```
