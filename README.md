@@ -76,3 +76,14 @@ const onClick = async () => {
   }
 };
 ```
+
+## Example React code to test in the iFrame
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => <h1>Hi There!</h1>;
+
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
